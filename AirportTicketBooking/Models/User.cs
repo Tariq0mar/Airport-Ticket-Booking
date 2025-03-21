@@ -1,21 +1,22 @@
 ﻿using System;
-using AirportTicketBooking;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AirportTicketBooking;
 
-class Passenger
+public class User
 {
     public required string Name { get; init; }
     public required int Age { get; init; }
-    public required string PassportNumber { get; init; }
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
 
-    public Passenger(string name, int age, string passportNumber, string email, string phoneNumber)
+    public User(string name, int age, string email, string phoneNumber)
     {
         Name = name;
         Age = age;
-        PassportNumber = passportNumber;
         Email = email;
         PhoneNumber = phoneNumber;
     }
