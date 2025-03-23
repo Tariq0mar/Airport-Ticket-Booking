@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportTicketBooking.Services;
+namespace AirportTicketBooking.AccessDB;
 
-interface IBookingWriteService
+class AccessFlights
 {
 }

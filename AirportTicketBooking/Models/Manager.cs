@@ -1,14 +1,12 @@
-﻿using System;
-using AirportTicketBooking;
+﻿using AirportTicketBooking.Enums;
+using System;
 
-namespace AirportTicketBooking;
+namespace AirportTicketBooking.Models;
 
 class Manager : User
 {
-    public required string PassportNumber { get; init; }
-
-    public Manager(string name, int age, string email, string phoneNumber, string passportNumber) : base(name, age, email, phoneNumber)
+    public Manager(int userID, string name, string email, string password, string phoneNumber, int age) : base(name, email, password, phoneNumber, age)
     {
-        PassportNumber = passportNumber;
+        role = UserRole.Manager;
     }
 }

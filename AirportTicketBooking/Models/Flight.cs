@@ -1,29 +1,37 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using AirportTicketBooking;
 using AirportTicketBooking.Enums;
 using AirportTicketBooking.InputClasses;
 
-namespace AirportTicketBooking;
+namespace AirportTicketBooking.Models;
 
 public class Flight
 {
     private static int _idCounter = 0;
     public string FlightID { get; init; }
-    public DepartureInformation departureInformation;
-    public DestinationInformation destinationInformation;
+    public TravelData DepartureData;
+    public TravelData DestinationData;
     public Dictionary<FlightClass, float> ClassPrice;
 
-    public Flight()
+    private Flight(string flightID, TravelData departureData, TravelData destinationData, Dictionary<FlightClass, float> classPrice)
     {
-        FlightID = (++_idCounter).ToString("D11");
+        FlightID = flightID;
+        DepartureData = departureData;
+        DestinationData = destinationData;
+        ClassPrice = classPrice;
+    }
 
-        Console.WriteLine($"Welcome, you created flight number ( {FlightID} ) but we still need some information about it");
+    public static Flight CreateFlight()
+    {
+        var flightID = (++_idCounter).ToString("D11");
 
-        ClassPrice = InputFlightClassPrices.InputClassesPrices();
-        departureInformation = InputDepartureInformation.GetDepartureInformation();
-        destinationInformation = InputDestinationInformation.GetDestinationInformation();
+        Console.WriteLine($"Welcome, you created flight number ( {flightID} ) but we still need some information about it");
+
+        var departureData = InputTravelData.GetTravelData();
+        var destinationData = InputTravelData.GetTravelData();
+        var classPrice = InputFlightClassPrices.InputClassesPrices();
+        
+        return new Flight(flightID, departureData, destinationData, classPrice);
     }
 
     public override string ToString()
@@ -34,6 +42,6 @@ public class Flight
             classes.Append(classPrice.Key + "," + classPrice.Value);
         }
 
-        return $"{FlightID},{departureInformation},{destinationInformation},{classes}";
+        return $"{FlightID},{DepartureData},{DestinationData},{classes}";
     }
 }

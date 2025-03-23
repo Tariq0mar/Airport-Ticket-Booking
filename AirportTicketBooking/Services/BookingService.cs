@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportTicketBooking.Repositories;
-
-interface IFlightWriteService
+namespace AirportTicketBooking.Services
 {
+    class BookingService
+    {
+    }
 }

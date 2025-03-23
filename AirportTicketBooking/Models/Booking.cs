@@ -1,22 +1,22 @@
 ﻿using System;
-using AirportTicketBooking;
-using AirportTicketBooking.Models;
 
-namespace AirportTicketBooking;
+namespace AirportTicketBooking.Models;
 
 public class Booking
 {
-    public required Flight Flight{ get; init; }
-    public required Passenger Passenger { get; init; }
+    public required int Id { get; init; }
+    public required int FlightId{ get; init; }
+    public required int PassengerId { get; init; }
 
-    public Booking(Flight flight, Passenger passenger)
+    public Booking(int id, int flightId, int passengerId)
     {
-        Flight = flight;
-        Passenger = passenger;
+        Id = id;
+        FlightId = flightId;
+        PassengerId = passengerId;
     }
 
     public override string ToString()
     {
-        return $"{Flight},{Passenger}";
+        return $"{FlightId},{PassengerId}";
     }
 }
