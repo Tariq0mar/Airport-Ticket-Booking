@@ -11,15 +11,13 @@ public class User
     public required string Email { get; init; }
     public required string Password { get; init; }
     public required string PhoneNumber { get; init; }
-    public required int Age { get; init; }
 
-    public User(int userID, string name, string email, string password, string phoneNumber, int age)
+    public User(int userID, string name, string email, string password, string phoneNumber)
     {
         UserID = userID;
         Name = name;
         Password = password;
         Email = email;
         PhoneNumber = phoneNumber;
-        Age = age;
     }
 }

@@ -4,9 +4,9 @@ namespace AirportTicketBooking.Models;
 
 public class Booking
 {
-    public required int Id { get; init; }
-    public required int FlightId{ get; init; }
-    public required int PassengerId { get; init; }
+    public int Id { get; init; }
+    public int FlightId{ get; init; }
+    public int PassengerId { get; init; }
 
     public Booking(int id, int flightId, int passengerId)
     {
@@ -17,6 +17,6 @@ public class Booking
 
     public override string ToString()
     {
-        return $"{FlightId},{PassengerId}";
+        return $"{Id},{FlightId},{PassengerId}";
     }
 }
