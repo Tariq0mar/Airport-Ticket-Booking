@@ -14,7 +14,7 @@ public class InputTravelData
         {
             if (int.TryParse(Console.ReadLine(), out int index) && (index == 1 || index == 2))
             {
-                if(index == 1)
+                if (index == 1)
                 {
                     place = "depature";
                 }

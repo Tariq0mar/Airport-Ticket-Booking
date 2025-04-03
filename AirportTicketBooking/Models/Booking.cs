@@ -1,14 +1,17 @@
-﻿using System;
-
-namespace AirportTicketBooking.Models;
+﻿namespace AirportTicketBooking.Models;
 
 public class Booking
 {
-    public int Id { get; init; }
-    public int FlightId{ get; init; }
-    public int PassengerId { get; init; }
+    public string Id { get; set; }
+    public string FlightId { get; set; }
+    public string PassengerId { get; set; }
 
-    public Booking(int id, int flightId, int passengerId)
+    public Booking(string flightId, string passengerId)
+    {
+        FlightId = flightId;
+        PassengerId = passengerId;
+    }
+    public Booking(string id, string flightId, string passengerId) : this(flightId, passengerId)
     {
         Id = id;
         FlightId = flightId;

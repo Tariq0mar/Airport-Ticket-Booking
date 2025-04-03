@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AirportTicketBooking.Enums;
+﻿namespace AirportTicketBooking.Enums;
 
 public enum Country
 {

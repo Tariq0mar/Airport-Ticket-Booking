@@ -1,12 +1,17 @@
-﻿using AirportTicketBooking.Enums;
-using System;
-
+﻿
 namespace AirportTicketBooking.Models;
 
-class Manager : User
+public class Manager : User
 {
-    public Manager(int userID, string name, string email, string password, string phoneNumber) : base(userID, name, email, password, phoneNumber)
+    public Manager(string name, string email, string password, string phoneNumber) : base(name, email, password, phoneNumber)
     {
-        role = UserRole.Manager;
+    }
+    public Manager(string userId, string name, string email, string password, string phoneNumber) : base(userId, name, email, password, phoneNumber)
+    {
+    }
+
+    public override string ToString()
+    {
+        return $"{base.ToString}";
     }
 }

@@ -1,15 +1,21 @@
-﻿using AirportTicketBooking.Enums;
-using System;
-
+﻿
 namespace AirportTicketBooking.Models;
 
 public class Passenger : User
 {
-    public required string PassportNumber { get; init; }
+    public string PassportNumber { get; init; }
 
-    public Passenger(int userID, string name, string email, string password, string phoneNumber, string passportNumber) : base(userID, name, email, password, phoneNumber)
+    public Passenger(string name, string email, string password, string phoneNumber, string passportNumber) : base(name, email, password, phoneNumber)
     {
-        role = UserRole.Passenger;
         PassportNumber = passportNumber;
+    }
+    public Passenger(string userId, string name, string email, string password, string phoneNumber, string passportNumber) : base(userId, name, email, password, phoneNumber)
+    {
+        PassportNumber = passportNumber;
+    }
+
+    public override string ToString()
+    {
+        return $"{base.ToString},{PassportNumber}";
     }
 }

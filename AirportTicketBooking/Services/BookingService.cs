@@ -1,12 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AirportTicketBooking.Interfaces.Repositories;
+using AirportTicketBooking.Interfaces.Services;
+using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 
-namespace AirportTicketBooking.Services
+namespace AirportTicketBooking.Services;
+
+class BookingService : IBookingService
 {
-    class BookingService
+    private IBookingRepository _repository;
+
+    public BookingService()
     {
+        _repository = new BookingRepository();
+    }
+
+    public Task AddBookingAsync(Booking booking)
+    {
+        return _repository.AddBookingAsync(booking);
+    }
+
+    public Task DeleteBookingAsync(string id)
+    {
+        return _repository.DeleteBookingAsync(id);
+    }
+
+    public Task<Booking?> GetBookingAsync(string id)
+    {
+        return _repository.GetBookingByIdAsync(id);
+    }
+
+    public Task UpdateBookingAsync(Booking booking)
+    {
+        return _repository.UpdateBookingAsync(booking);
     }
 }
