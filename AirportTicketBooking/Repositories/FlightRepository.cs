@@ -1,6 +1,7 @@
 ﻿using AirportTicketBooking.Models;
 using AirportTicketBooking.Convert;
 using AirportTicketBooking.Interfaces.Repositories;
+using AirportTicketBooking.Serializers;
 
 namespace AirportTicketBooking.Repositories;
 
@@ -12,7 +13,8 @@ public class FlightRepository : IFlightRepository
     public async Task AddFlightAsync(Flight flight)
     {
         flight.FlightId = (++_idCounter).ToString("D11");
-        var line = $"{flight}{Environment.NewLine}";
+
+        var line = $"{ConvertToCsv.FromFlight(flight)}{Environment.NewLine}";
         await File.AppendAllTextAsync(_filePath, line);
     }
 
@@ -29,7 +31,11 @@ public class FlightRepository : IFlightRepository
 
         foreach (var line in lines)
         {
-            flightList.Add(ConvertFromCsv.ToFlight(line));
+            var lineFlight = ConvertFromCsv.ToFlight(line);
+            if (lineFlight is not null)
+            {
+                flightList.Add(lineFlight);
+            }
         }
 
         return flightList;
@@ -55,7 +61,7 @@ public class FlightRepository : IFlightRepository
 
     private async Task SaveAllFlightsAsync(IEnumerable<Flight> flights)
     {
-        var lines = new List<string>(flights.Select(f => $"{f}"));
+        var lines = new List<string>(flights.Select(f => $"{ConvertToCsv.FromFlight(f)}{Environment.NewLine}"));
         await File.WriteAllLinesAsync(_filePath, lines);
     }
 }

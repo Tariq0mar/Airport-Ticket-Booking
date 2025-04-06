@@ -1,5 +1,7 @@
-﻿using AirportTicketBooking.Interfaces.Repositories;
+﻿using AirportTicketBooking.Convert;
+using AirportTicketBooking.Interfaces.Repositories;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.Serializers;
 
 namespace AirportTicketBooking.Repositories;
 
@@ -11,7 +13,7 @@ class UserRepository : IUserRepository
     public async Task AddUserAsync(User user)
     {
         user.UserId = (++_idCounter).ToString("D11");
-        var line = $"{user}{Environment.NewLine}";
+        var line = $"{user.ToString()}{Environment.NewLine}";
         await File.AppendAllTextAsync(_filePath, line + Environment.NewLine);
     }
 
@@ -28,14 +30,11 @@ class UserRepository : IUserRepository
 
         foreach (var line in lines)
         {
-            var parts = line.Split(',');
-            if (parts.Length == 5)
+            var user = ConvertFromCsv.ToUser(line);
+            
+            if(user is not null)
             {
-                usersList.Add(new Manager(parts[0], parts[1], parts[2], parts[3], parts[4]));
-            }
-            else
-            {
-                usersList.Add(new Passenger(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]));
+                usersList.Add(user);
             }
         }
 
@@ -58,7 +57,7 @@ class UserRepository : IUserRepository
 
     private async Task SaveAllUsersAsync(IEnumerable<User> users)
     {
-        var lines = users.Select(u => u.ToString());
+        var lines = new List<string>(users.Select(u => $"{u.ToString()}{Environment.NewLine}"));
         await File.WriteAllLinesAsync(_filePath, lines);
     }
 }

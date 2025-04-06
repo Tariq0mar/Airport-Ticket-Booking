@@ -4,9 +4,9 @@ namespace AirportTicketBooking.Models;
 
 public class TravelData
 {
-    public Country LocationCountry { get; init; }
-    public DateTime FlightDate { get; init; }
-    public Airport FlightAirport { get; init; }
+    public Country LocationCountry { get; set; }
+    public DateTime FlightDate { get; set; }
+    public Airport FlightAirport { get; set; }
     public TravelData(Country locationCountry, DateTime flightDate, Airport flightAirport)
     {
         LocationCountry = locationCountry;

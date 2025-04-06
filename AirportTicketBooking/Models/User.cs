@@ -11,14 +11,11 @@ public class User
 
     public User(string name, string email, string password, string phoneNumber)
     {
+        UserId = string.Empty;
         Name = name;
         Password = password;
         Email = email;
         PhoneNumber = phoneNumber;
-    }
-    public User(string userId, string name, string email, string password, string phoneNumber) : this(name, email, password, phoneNumber)
-    {
-        UserId = userId;
     }
 
     public override string ToString()

@@ -7,21 +7,16 @@ namespace AirportTicketBooking.Services;
 
 class UserService : IUserService
 {
-    private IUserRepository _userRepository;
-
-    public UserService()
-    {
-        _userRepository = new UserRepository();
-    }
+    private readonly IUserRepository _userRepository = new UserRepository();
 
     public Task AddUserAsync(User user)
     {
         return _userRepository.AddUserAsync(user);
     }
 
-    public async Task<User?> GetUserByIdAsync(string id)
+    public Task<User?> GetUserByIdAsync(string id)
     {
-        return await _userRepository.GetUserByIdAsync(id);
+        return _userRepository.GetUserByIdAsync(id);
     }
 
     public Task RemoveUserAsync(string id)
@@ -32,5 +27,15 @@ class UserService : IUserService
     public Task UpdateUserAsync(User user)
     {
         return _userRepository.UpdateUserAsync(user);
+    }
+
+    public async Task<User?> UserAuthentication(string id, string password) 
+    {
+        var user = await GetUserByIdAsync(id);
+        if(user is null || user.Password != password)
+        {
+            return null;
+        }
+        return user;
     }
 }

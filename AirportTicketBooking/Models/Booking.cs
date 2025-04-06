@@ -8,18 +8,8 @@ public class Booking
 
     public Booking(string flightId, string passengerId)
     {
+        Id = string.Empty;
         FlightId = flightId;
         PassengerId = passengerId;
-    }
-    public Booking(string id, string flightId, string passengerId) : this(flightId, passengerId)
-    {
-        Id = id;
-        FlightId = flightId;
-        PassengerId = passengerId;
-    }
-
-    public override string ToString()
-    {
-        return $"{Id},{FlightId},{PassengerId}";
     }
 }

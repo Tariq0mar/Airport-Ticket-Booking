@@ -1,8 +1,4 @@
-﻿using System;
-using AirportTicketBooking;
-using AirportTicketBooking.Enums;
-using AirportTicketBooking.InputClasses;
-using AirportTicketBooking.Models;
+﻿using AirportTicketBooking.Models;
 using AirportTicketBooking.Repositories;
 
 namespace AirportTicketBooking;

@@ -10,8 +10,9 @@ public enum ManagerOptions
     GetAllBookings,
     UpdateBooking,
     DeleteBooking,
-    GetFligth,
+    GetFlight,
     GetAllFlights,
     UpdateFlights,
     DeleteFlights,
+    Exit
 }

@@ -9,13 +9,9 @@ public class Passenger : User
     {
         PassportNumber = passportNumber;
     }
-    public Passenger(string userId, string name, string email, string password, string phoneNumber, string passportNumber) : base(userId, name, email, password, phoneNumber)
-    {
-        PassportNumber = passportNumber;
-    }
 
-    public override string ToString()
+    public string ToString()
     {
-        return $"{base.ToString},{PassportNumber}";
+        return $"{base.ToString()},{PassportNumber}";
     }
 }

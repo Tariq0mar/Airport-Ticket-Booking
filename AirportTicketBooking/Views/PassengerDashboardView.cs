@@ -2,12 +2,12 @@
 
 namespace AirportTicketBooking.Logging;
 
-class ManagerScreen
+class PassengerDashboardView
 {
     public static void Menu()
     {
         Console.WriteLine("Actions list:");
-        foreach (var option in Enum.GetValues(typeof(ManagerOptions)))
+        foreach (var option in Enum.GetValues(typeof(PassengerOptions)))
         {
             Console.WriteLine($"{(int)option} - {option}");
         }

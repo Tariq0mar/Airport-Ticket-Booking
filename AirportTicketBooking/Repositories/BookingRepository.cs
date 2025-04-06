@@ -1,5 +1,8 @@
-﻿using AirportTicketBooking.Interfaces.Repositories;
+﻿using AirportTicketBooking.Convert;
+using AirportTicketBooking.Interfaces.Repositories;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.ModelsFactories;
+using AirportTicketBooking.Serializers;
 
 namespace AirportTicketBooking.Repositories;
 
@@ -11,7 +14,7 @@ public class BookingRepository : IBookingRepository
     public async Task AddBookingAsync(Booking booking)
     {
         booking.Id = (++_idCounter).ToString("D11");
-        var line = $"{booking}{Environment.NewLine}";
+        var line = $"{ConvertToCsv.FromBooking(booking)}{Environment.NewLine}";
         await File.AppendAllTextAsync(_filePath, line);
     }
 
@@ -28,12 +31,10 @@ public class BookingRepository : IBookingRepository
 
         foreach (var line in lines)
         {
-            var parts = line.Split(',');
-            if (int.TryParse(parts[0], out int Id) &&
-                int.TryParse(parts[1], out int flightId) &&
-                int.TryParse(parts[2], out int passengerId))
-            {
-                bookingsList.Add(new Booking(parts[0], parts[1], parts[2]));
+            var booking = ConvertFromCsv.ToBooking(line);
+            if(booking is not null) 
+            { 
+                bookingsList.Add(booking);
             }
         }
 
@@ -60,7 +61,7 @@ public class BookingRepository : IBookingRepository
 
     private async Task SaveAllBookingsAsync(IEnumerable<Booking> bookings)
     {
-        var lines = new List<string>(bookings.Select(b => $"{b}"));
+        var lines = new List<string>(bookings.Select(b => $"{ConvertToCsv.FromBooking(b)}{Environment.NewLine}"));
         await File.WriteAllLinesAsync(_filePath, lines);
     }
 }

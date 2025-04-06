@@ -7,21 +7,19 @@ public class InputTravelData
 {
     public static TravelData GetTravelData()
     {
-        string place = string.Empty;
-        Console.WriteLine("press 1 if you want to input depature data");
-        Console.WriteLine("press 2 if you want to input destination data");
+        const int departureNumber = 1;
+        const int destinationNumber = 2;
+
+        var place = string.Empty;
+        Console.WriteLine($"press {departureNumber} if you want to input depature data");
+        Console.WriteLine($"press {destinationNumber} if you want to input destination data");
+
         while (true)
         {
-            if (int.TryParse(Console.ReadLine(), out int index) && (index == 1 || index == 2))
+            if (int.TryParse(Console.ReadLine(), out var index) && (index == departureNumber || index == destinationNumber))
             {
-                if (index == 1)
-                {
-                    place = "depature";
-                }
-                else
-                {
-                    place = "destination";
-                }
+                place = index == departureNumber ? "depature" : "destination";
+                break;
             }
             else
             {
@@ -43,7 +41,7 @@ public class InputTravelData
 
         var countries = Enum.GetValues<Country>().ToArray();
 
-        for (int i = 0; i < countries.Length; i++)
+        for (var i = 0; i < countries.Length; i++)
         {
             Console.WriteLine($"{i + 1}. {countries[i]}");
         }
@@ -51,7 +49,7 @@ public class InputTravelData
         while (true)
         {
             Console.Write("Enter the number of your choice: ");
-            if (int.TryParse(Console.ReadLine(), out int index) &&
+            if (int.TryParse(Console.ReadLine(), out var index) &&
                 index > 0 && index <= countries.Length)
             {
                 return countries[index - 1];
@@ -70,7 +68,7 @@ public class InputTravelData
 
         var airport = Enum.GetValues<Airport>().ToArray();
 
-        for (int i = 0; i < airport.Length; i++)
+        for (var i = 0; i < airport.Length; i++)
         {
             Console.WriteLine($"{i + 1}. {airport[i]}");
         }
@@ -78,7 +76,7 @@ public class InputTravelData
         while (true)
         {
             Console.Write("Enter the number of your choice: ");
-            if (int.TryParse(Console.ReadLine(), out int index) &&
+            if (int.TryParse(Console.ReadLine(), out var index) &&
                 index > 0 && index <= airport.Length)
             {
                 return airport[index - 1];

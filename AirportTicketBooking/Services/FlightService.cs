@@ -1,17 +1,13 @@
 ﻿using AirportTicketBooking.Interfaces.Repositories;
 using AirportTicketBooking.Interfaces.Services;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 
 namespace AirportTicketBooking.Services;
 
 public class FlightService : IFlightService
 {
-    private readonly IFlightRepository _flightRepository;
-
-    public FlightService(IFlightRepository flightRepository)
-    {
-        _flightRepository = flightRepository;
-    }
+    private readonly IFlightRepository _flightRepository = new FlightRepository();
 
     public async Task AddFlightAsync(Flight flight)
     {
