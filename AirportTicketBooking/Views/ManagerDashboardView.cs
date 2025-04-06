@@ -1,6 +1,7 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Services;
 using AirportTicketBooking.Repositories;
+using AirportTicketBooking.Models;
 
 namespace AirportTicketBooking.Logging;
 
@@ -16,20 +17,17 @@ class ManagerDashboardView
     {
         _managerActions = new Dictionary<ManagerOptions, Func<Task>>
         {
-            { ManagerOptions.GetUser, GetUserAsync },
-            { ManagerOptions.GetAllUsers, GetUserAsync },
-            { ManagerOptions.DeleteUser, DeleteUserAsync },
-            { ManagerOptions.UpdateUser, UpdateUserAsync },
+            { ManagerOptions.GetUser,       () => _userService.GetUserByIdAsync() },
+            { ManagerOptions.UpdateUser,    () => _userService.UpdateUserAsync() },
+            { ManagerOptions.DeleteUser,    () => _userService.RemoveUserAsync() },
 
-            { ManagerOptions.GetBooking, GetBookingAsync },
-            { ManagerOptions.GetAllBookings, GetUserAsync },
-            { ManagerOptions.DeleteBooking, DeleteBookingAsync },
-            { ManagerOptions.UpdateBooking, UpdateBookingAsync },
+            { ManagerOptions.GetFligth,     () => _flightService.GetFlightByIdAsync() },
+            { ManagerOptions.UpdateFlights, () => _flightService.UpdateFlightAsync() },
+            { ManagerOptions.DeleteFlights, () => _flightService.DeleteFlightAsync() },
 
-            { ManagerOptions.GetFlight, GetFlightAsync },
-            { ManagerOptions.GetAllFlights, GetUserAsync },
-            { ManagerOptions.DeleteFlights, DeleteFlightAsync },
-            { ManagerOptions.UpdateFlights, UpdateFlightAsync },
+            { ManagerOptions.GetBooking,    () => _bookingService.GetBookingAsync() },
+            { ManagerOptions.UpdateBooking, () => _bookingService.UpdateBookingAsync() },
+            { ManagerOptions.DeleteBooking, () => _bookingService.DeleteBookingAsync() }
         };
     }
 
