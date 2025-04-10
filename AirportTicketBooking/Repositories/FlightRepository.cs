@@ -7,24 +7,26 @@ namespace AirportTicketBooking.Repositories;
 
 public class FlightRepository : IFlightRepository
 {
-    private readonly string _filePath = "D:\\Airport-Ticket-Flight\\AirportTicketFlight\\DataBase\\flights.csv";
+    private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task AddFlightAsync(Flight flight)
+    public async Task AddAsync(Flight flight)
     {
-        flight.FlightId = (++_idCounter).ToString("D11");
-
         var line = $"{ConvertToCsv.FromFlight(flight)}{Environment.NewLine}";
+        var parts = line.Split(',');
+        parts[0] = (++_idCounter).ToString("D11");
+        line = string.Join(",", parts);
+
         await File.AppendAllTextAsync(_filePath, line);
     }
 
-    public async Task<Flight?> GetFlightByIdAsync(string id)
+    public async Task<Flight?> GetByIdAsync(string id)
     {
-        var Flights = await GetAllFlightsAsync();
+        var Flights = await GetAllAsync();
         return Flights.FirstOrDefault(b => b.FlightId == id);
     }
 
-    public async Task<IEnumerable<Flight>> GetAllFlightsAsync()
+    public async Task<IEnumerable<Flight>> GetAllAsync()
     {
         var lines = await File.ReadAllLinesAsync(_filePath);
         var flightList = new List<Flight>();
@@ -41,25 +43,25 @@ public class FlightRepository : IFlightRepository
         return flightList;
     }
 
-    public async Task UpdateFlightAsync(Flight newFlight)
+    public async Task UpdateAsync(Flight newFlight)
     {
-        var flights = (await GetAllFlightsAsync()).ToList();
+        var flights = (await GetAllAsync()).ToList();
         var index = flights.FindIndex(b => b.FlightId == newFlight.FlightId);
 
         if (index != -1)
         {
             flights[index] = newFlight;
-            await SaveAllFlightsAsync(flights);
+            await SaveAllAsync(flights);
         }
     }
 
-    public async Task DeleteFlightAsync(string id)
+    public async Task DeleteAsync(string id)
     {
-        var Flights = (await GetAllFlightsAsync()).Where(b => b.FlightId != id).ToList();
-        await SaveAllFlightsAsync(Flights);
+        var Flights = (await GetAllAsync()).Where(b => b.FlightId != id).ToList();
+        await SaveAllAsync(Flights);
     }
 
-    private async Task SaveAllFlightsAsync(IEnumerable<Flight> flights)
+    private async Task SaveAllAsync(IEnumerable<Flight> flights)
     {
         var lines = new List<string>(flights.Select(f => $"{ConvertToCsv.FromFlight(f)}{Environment.NewLine}"));
         await File.WriteAllLinesAsync(_filePath, lines);

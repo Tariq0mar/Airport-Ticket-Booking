@@ -7,23 +7,32 @@ namespace AirportTicketBooking.Repositories;
 
 class UserRepository : IUserRepository
 {
-    private readonly string _filePath = "D:\\Airport-Ticket-Booking\\AirportTicketBooking\\DataBase\\users.csv";
+    private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task AddUserAsync(User user)
+    public async Task AddAsync(User user)
     {
-        user.UserId = (++_idCounter).ToString("D11");
-        var line = $"{user.ToString()}{Environment.NewLine}";
+        var line = $"{ConvertToCsv.FromUser(user)}{Environment.NewLine}";
+        var parts = line.Split(',');
+        parts[0] = (++_idCounter).ToString("D11");
+        line = string.Join(",", parts);
+
         await File.AppendAllTextAsync(_filePath, line + Environment.NewLine);
     }
 
-    public async Task<User?> GetUserByIdAsync(string id)
+    public async Task<User?> GetByIdAsync(string id)
     {
-        var users = await GetAllUsersAsync();
+        var users = await GetAllAsync();
         return users.FirstOrDefault(u => u.UserId == id);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        var users = await GetAllAsync();
+        return users.FirstOrDefault(u => u.Email == email);
+    }
+
+    public async Task<IEnumerable<User>> GetAllAsync()
     {
         var lines = await File.ReadAllLinesAsync(_filePath);
         var usersList = new List<User>();
@@ -41,23 +50,23 @@ class UserRepository : IUserRepository
         return usersList;
     }
 
-    public async Task UpdateUserAsync(User user)
+    public async Task UpdateAsync(User user)
     {
-        var users = await GetAllUsersAsync();
+        var users = await GetAllAsync();
         var updatedUsers = users.Select(u => u.UserId == user.UserId ? user : u).ToList();
-        await SaveAllUsersAsync(updatedUsers);
+        await SaveAllAsync(updatedUsers);
     }
 
-    public async Task DeleteUserAsync(string id)
+    public async Task DeleteAsync(string id)
     {
-        var users = await GetAllUsersAsync();
+        var users = await GetAllAsync();
         var filteredUsers = users.Where(u => u.UserId != id);
-        await SaveAllUsersAsync(filteredUsers);
+        await SaveAllAsync(filteredUsers);
     }
 
-    private async Task SaveAllUsersAsync(IEnumerable<User> users)
+    private async Task SaveAllAsync(IEnumerable<User> users)
     {
-        var lines = new List<string>(users.Select(u => $"{u.ToString()}{Environment.NewLine}"));
+        var lines = new List<string>(users.Select(u => $"{ConvertToCsv.FromUser(u)}{Environment.NewLine}"));
         await File.WriteAllLinesAsync(_filePath, lines);
     }
 }
