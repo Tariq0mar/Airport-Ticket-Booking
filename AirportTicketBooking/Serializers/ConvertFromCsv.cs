@@ -1,6 +1,5 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Models;
-using AirportTicketBooking.ModelsFactories;
 using AirportTicketBooking.Validators;
 using System.Globalization;
 
@@ -10,24 +9,27 @@ public class ConvertFromCsv
 {
     public static Flight? ToFlight(string line)
     {
-        if (!CsvLineValidator.FlightLineValidator(line)){
+        if (!CsvLineValidator.FlightLineValidator(line))
+        {
             return null;
         }
 
         var parts = line.Split(',');
         var flightId = parts[0];
 
-        var departureData = new TravelData(
-            Enum.Parse<Country>(parts[1]),
-            DateTime.Parse(parts[2], null, DateTimeStyles.RoundtripKind),
-            Enum.Parse<Airport>(parts[3])
-        );
+        var departureData = new TravelData
+        {
+            LocationCountry = Enum.Parse<Country>(parts[1]),
+            FlightDate = DateTime.Parse(parts[2], null, DateTimeStyles.RoundtripKind),
+            FlightAirport = Enum.Parse<Airport>(parts[3])
+        };
 
-        var destinationData = new TravelData(
-            Enum.Parse<Country>(parts[4]),
-            DateTime.Parse(parts[5], null, DateTimeStyles.RoundtripKind),
-            Enum.Parse<Airport>(parts[6])
-        );
+        var destinationData = new TravelData
+        {
+            LocationCountry = Enum.Parse<Country>(parts[4]),
+            FlightDate = DateTime.Parse(parts[5], null, DateTimeStyles.RoundtripKind),
+            FlightAirport = Enum.Parse<Airport>(parts[6])
+        };
 
         var classPrice = new Dictionary<FlightClass, float>();
         int.TryParse(parts[7], out var size);
@@ -41,17 +43,31 @@ public class ConvertFromCsv
             }
         }
 
-        return FlightFactory.CreateFlightFromParameters(flightId, departureData, destinationData, classPrice);
+        var flight = new Flight
+        {
+            FlightId = string.Empty,
+            ClassPrice = classPrice,
+            DepartureData = departureData,
+            DestinationData = departureData
+        };
+        return flight;
     }
 
     public static Booking? ToBooking(string line)
     {
-        if (!CsvLineValidator.BookingLineValidator(line){
+        if (!CsvLineValidator.BookingLineValidator(line))
+        {
             return null;
         }
 
         var parts = line.Split(',');
-        return BookingFactory.CreateBooking(parts[0], parts[1], parts[2]);
+        var booking = new Booking
+        {
+            Id = parts[0],
+            FlightId = parts[1],
+            PassengerId = parts[2]
+        };
+        return booking;
     }
 
     public static User? ToUser(string line)
@@ -63,13 +79,30 @@ public class ConvertFromCsv
             return null;
         }
 
-        if (line.Length == 5)
+        if (Enum.Parse<UserRole>(parts[1]) == UserRole.Manager)
         {
-            return UserFactory.CreateManager(parts[0], parts[1], parts[2], parts[3], parts[4]);
+            return new Manager
+            {
+                UserId = parts[0],
+                Role = Enum.Parse<UserRole>(parts[1]), 
+                Name = parts[2], 
+                Email = parts[3],
+                Password = parts[4],
+                PhoneNumber = parts[5]
+            };
         }
-        else if (line.Length == 6)
+        else if (Enum.Parse<UserRole>(parts[1]) == UserRole.Passenger)
         {
-            return UserFactory.CreatePassenger(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
+            return new Passenger
+            {
+                UserId = parts[0],
+                Role = Enum.Parse<UserRole>(parts[1]),
+                Name = parts[2],
+                Email = parts[3],
+                Password = parts[4],
+                PhoneNumber = parts[5],
+                PassportNumber = parts[6]
+            };
         }
 
         return null;

@@ -1,5 +1,6 @@
 ﻿using AirportTicketBooking.Models;
-using System.Text;
+using AirportTicketBooking.Enums;
+using System.ComponentModel;
 
 namespace AirportTicketBooking.Serializers;
 
@@ -7,18 +8,38 @@ class ConvertToCsv
 {
     public static string FromFlight(Flight flight)
     {
-        StringBuilder classes = new StringBuilder();
-        foreach (var classPrice in flight.ClassPrice)
-        {
-            classes.Append(classPrice.Key + "," + classPrice.Value + ",");
-        }
-        classes.Remove(classes.Length - 1, classes.Length);
+        var departure = $"{flight.DepartureData.LocationCountry},{flight.DepartureData.FlightAirport},{flight.DepartureData.FlightDate}";
+        var destination = $"{flight.DestinationData.LocationCountry},{flight.DestinationData.FlightAirport},{flight.DestinationData.FlightDate}";
 
-        return $"{flight.FlightId},{flight.DepartureData},{flight.DestinationData},{classes}";
+        var classes = string.Join(",", flight.ClassPrice.Select(c => $"{c.Key},{c.Value}"));
+
+        return $"{flight.FlightId},{departure},{destination},{classes}";
     }
 
     public static string FromBooking(Booking booking)
     {
         return $"{booking.Id},{booking.FlightId},{booking.PassengerId}";
+    }
+
+    public static string FromUser(User user)
+    {
+        if(user.Role == UserRole.Passenger)
+        {
+            var passenger = (Passenger)(user);
+            return FromUser(passenger);
+        }
+        else
+        {
+            var manager = (Manager)(user);
+            return FromUser(manager);
+        }
+    }
+    private static string FromUser(Manager manager)
+    {
+      return $"{manager.UserId},{manager.Role},{manager.Name},{manager.Email},{manager.Password},{manager.PhoneNumber}";
+    }
+    private static string FromUser(Passenger passenger)
+    {
+        return $"{passenger.UserId},{passenger.Role},{passenger.Name},{passenger.Email},{passenger.Password},{passenger.PhoneNumber},{passenger.PassportNumber}";
     }
 }
