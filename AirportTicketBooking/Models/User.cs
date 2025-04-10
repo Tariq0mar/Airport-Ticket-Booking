@@ -4,7 +4,7 @@ namespace AirportTicketBooking.Models;
 
 public class User
 {
-    public required string UserId { get; init; } = string.Empty;
+    public required string UserId { get; init; }
     public required UserRole Role { get; init; }
     public required string Name { get; init; }
     public required string Email { get; init; }
@@ -13,6 +13,11 @@ public class User
 
     public override string ToString()
     {
-        return $"{UserId},{Name},{Email},{Password},{PhoneNumber}";
+        return $"User ID: {UserId}\n" +
+               $"Role: {Role}\n" +
+               $"Name: {Name}\n" +
+               $"Email: {Email}\n" +
+               $"Password: {Password}\n" +
+               $"Phone Number: {PhoneNumber}";
     }
 }

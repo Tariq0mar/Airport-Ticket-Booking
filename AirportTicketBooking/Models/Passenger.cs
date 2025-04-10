@@ -7,6 +7,7 @@ public class Passenger : User
 
     public override string ToString()
     {
-        return $"{base.ToString()},{PassportNumber}";
+        return $"{base.ToString()}\n" +
+               $"Passport Number: {PassportNumber}\n";
     }
 }
