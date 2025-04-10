@@ -1,11 +1,13 @@
 ﻿using AirportTicketBooking.Models;
+
 namespace AirportTicketBooking.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    Task AddUserAsync(User user);
-    Task<User?> GetUserByIdAsync(string id);
-    Task<IEnumerable<User>> GetAllUsersAsync();
-    Task UpdateUserAsync(User user);
-    Task DeleteUserAsync(string id);
+    Task AddAsync(User user);
+    Task<User?> GetByIdAsync(string id);
+    Task<User?> GetByEmailAsync(string email);
+    Task<IEnumerable<User>> GetAllAsync();
+    Task UpdateAsync(User user);
+    Task DeleteAsync(string id);
 }

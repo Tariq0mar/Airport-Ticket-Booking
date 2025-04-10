@@ -4,9 +4,11 @@ namespace AirportTicketBooking.Interfaces.Services;
 
 public interface IUserService
 {
-    Task AddUserAsync(User user);
-    Task<User?> GetUserByIdAsync(string id);
-    Task UpdateUserAsync(User user);
-    Task RemoveUserAsync(string id);
+    Task AddAsync(User user);
+    Task<User?> GetByIdAsync(string id);
+    Task<User?> GetByEmailAsync(string email);
+    Task<IEnumerable<User>> GetAllAsync();
+    Task<bool> UpdateAsync(User user);
+    Task<bool> RemoveAsync(string id);
 }
 

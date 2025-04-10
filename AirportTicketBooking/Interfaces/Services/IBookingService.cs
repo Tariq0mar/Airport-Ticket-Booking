@@ -4,10 +4,11 @@ namespace AirportTicketBooking.Interfaces.Services;
 
 public interface IBookingService
 {
-    Task AddBookingAsync(Booking booking);
-    Task<Booking?> GetBookingAsync(string id);
-    Task UpdateBookingAsync(Booking booking);
-    Task DeleteBookingAsync(string id);
+    Task AddAsync(Booking booking);
+    Task<Booking?> GetAsync(string id);
+    Task<IEnumerable<Booking>> GetAllAsync();
+    Task<bool> UpdateAsync(Booking booking);
+    Task<bool> DeleteAsync(string id);
 }
 
 

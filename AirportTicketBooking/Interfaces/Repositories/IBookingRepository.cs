@@ -4,9 +4,10 @@ namespace AirportTicketBooking.Interfaces.Repositories;
 
 public interface IBookingRepository
 {
-    Task AddBookingAsync(Booking booking);
-    Task<Booking?> GetBookingByIdAsync(string id);
-    Task UpdateBookingAsync(Booking booking);
-    Task DeleteBookingAsync(string id);
-    Task<IEnumerable<Booking>> GetAllBookingsAsync();
+    Task AddAsync(Booking booking);
+    Task<Booking?> GetByBookingIdAsync(string id);
+    Task<IEnumerable<Booking>> GetByPassengerIdAsync(string id);
+    Task<IEnumerable<Booking>> GetAllAsync();
+    Task UpdateAsync(Booking booking);
+    Task DeleteAsync(string id);
 }
