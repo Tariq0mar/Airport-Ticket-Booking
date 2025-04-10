@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportTicketBooking.Views;
+namespace AirportTicketBooking.Presentations.Screens;
 
 class InputAccountData
 {

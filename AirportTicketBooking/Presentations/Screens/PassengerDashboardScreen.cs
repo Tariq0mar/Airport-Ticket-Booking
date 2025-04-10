@@ -1,8 +1,8 @@
 ﻿using AirportTicketBooking.Enums;
 
-namespace AirportTicketBooking.Logging;
+namespace AirportTicketBooking.Presentations.Screens;
 
-class PassengerDashboardView
+class PassengerDashboardScreen
 {
     public static void Menu()
     {

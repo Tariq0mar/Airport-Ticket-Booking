@@ -14,23 +14,23 @@ class BookingService : IBookingService
         _repository = new BookingRepository();
     }
 
-    public Task AddBookingAsync(Booking booking)
+    public Task AddAsync(Booking booking)
     {
-        return _repository.AddBookingAsync(booking);
+        return _repository.AddAsync(booking);
     }
 
-    public Task DeleteBookingAsync(string id)
+    public Task DeleteAsync(string id)
     {
-        return _repository.DeleteBookingAsync(id);
+        return _repository.DeleteAsync(id);
     }
 
-    public Task<Booking?> GetBookingAsync(string id)
+    public Task<Booking?> GetAsync(string id)
     {
-        return _repository.GetBookingByIdAsync(id);
+        return _repository.GetByIdAsync(id);
     }
 
-    public Task UpdateBookingAsync(Booking booking)
+    public Task UpdateAsync(Booking booking)
     {
-        return _repository.UpdateBookingAsync(booking);
+        return _repository.UpdateAsync(booking);
     }
 }

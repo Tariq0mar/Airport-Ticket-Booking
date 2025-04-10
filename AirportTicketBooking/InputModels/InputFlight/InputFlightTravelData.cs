@@ -1,37 +1,39 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Models;
+using System;
 
-namespace AirportTicketBooking.InputClasses;
+namespace AirportTicketBooking.InputModels.InputFlight;
 
-public class InputTravelData
+public class InputFlightTravelData
 {
-    public static TravelData GetTravelData()
+    public static TravelData Input(int type)
     {
         const int departureNumber = 1;
         const int destinationNumber = 2;
 
         var place = string.Empty;
-        Console.WriteLine($"press {departureNumber} if you want to input depature data");
-        Console.WriteLine($"press {destinationNumber} if you want to input destination data");
 
-        while (true)
+        switch (type)
         {
-            if (int.TryParse(Console.ReadLine(), out var index) && (index == departureNumber || index == destinationNumber))
-            {
-                place = index == departureNumber ? "depature" : "destination";
+            case departureNumber:
+                place = "depature";
                 break;
-            }
-            else
-            {
-                Console.WriteLine("invalid input, press 1 or 2");
-            }
+            case destinationNumber:
+                place = "destination";
+                break;
         }
 
         var counrty = InputCountry(place);
         var date = InputDate(place);
         var airport = InputAirport(place);
+        var travelData = new TravelData
+        {
+            LocationCountry = counrty,
+            FlightAirport = airport,
+            FlightDate = date
+        };
 
-        return new TravelData(counrty, date, airport);
+        return travelData;
     }
 
     private static Country InputCountry(string place)

@@ -3,9 +3,9 @@ using AirportTicketBooking.Services;
 using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Models;
 
-namespace AirportTicketBooking.Logging;
+namespace AirportTicketBooking.Presentations.Screens;
 
-class ManagerDashboardView
+class ManagerDashboardScreen
 {
     private readonly UserService _userService = new UserService();
     private readonly BookingService _bookingService = new BookingService();
@@ -13,7 +13,7 @@ class ManagerDashboardView
 
     private readonly Dictionary<ManagerOptions, Func<Task>> _managerActions;
 
-    public ManagerDashboardView()
+    public ManagerDashboardScreen()
     {
         _managerActions = new Dictionary<ManagerOptions, Func<Task>>
         {

@@ -1,9 +1,8 @@
 ﻿using AirportTicketBooking.Models;
-using AirportTicketBooking.Views;
 
-namespace AirportTicketBooking.Logging;
+namespace AirportTicketBooking.Presentations.Screens;
 
-class LoginView
+class UserLoginScreen
 {
     public static async Task Login()
     {

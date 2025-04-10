@@ -1,6 +1,5 @@
 ﻿using AirportTicketBooking.Models;
 using AirportTicketBooking.Enums;
-using System.ComponentModel;
 
 namespace AirportTicketBooking.Serializers;
 
