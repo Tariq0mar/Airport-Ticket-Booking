@@ -2,14 +2,7 @@
 
 public class Booking
 {
-    public string Id { get; set; }
-    public string FlightId { get; set; }
-    public string PassengerId { get; set; }
-
-    public Booking(string flightId, string passengerId)
-    {
-        Id = string.Empty;
-        FlightId = flightId;
-        PassengerId = passengerId;
-    }
+    public required string Id { get; init; } = string.Empty;
+    public required string FlightId { get; init; }
+    public required string PassengerId { get; init; }
 }

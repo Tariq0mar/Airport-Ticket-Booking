@@ -1,22 +1,15 @@
-﻿
+﻿using AirportTicketBooking.Enums;
+
 namespace AirportTicketBooking.Models;
 
 public class User
 {
-    public string UserId { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string PhoneNumber { get; set; }
-
-    public User(string name, string email, string password, string phoneNumber)
-    {
-        UserId = string.Empty;
-        Name = name;
-        Password = password;
-        Email = email;
-        PhoneNumber = phoneNumber;
-    }
+    public required string UserId { get; init; } = string.Empty;
+    public required UserRole Role { get; init; }
+    public required string Name { get; init; }
+    public required string Email { get; init; }
+    public required string Password { get; init; }
+    public required string PhoneNumber { get; init; }
 
     public override string ToString()
     {
