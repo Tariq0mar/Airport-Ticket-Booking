@@ -2,7 +2,7 @@
 
 namespace AirportTicketBooking.InputModels.InputBooking;
 
-public class InputBooking
+public static class InputBooking
 {
     public static Booking Input()
     {

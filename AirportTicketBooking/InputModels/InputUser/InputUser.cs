@@ -1,14 +1,9 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirportTicketBooking.InputModels.InputUser;
 
-class InputUser
+public static class InputUser
 {
     public static User InputManager()
     {

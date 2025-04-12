@@ -10,14 +10,22 @@ public class BookingRepository : IBookingRepository
     private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task AddAsync(Booking booking)
+    public async Task<bool> AddAsync(Booking booking)
     {
-        var line = $"{ConvertToCsv.FromBooking(booking)}{Environment.NewLine}";
-        var parts = line.Split(',');
-        parts[0] = (++_idCounter).ToString("D11");
-        line = string.Join(",", parts);
+        try
+        {
+            var line = $"{ConvertToCsv.FromBooking(booking)}{Environment.NewLine}";
+            var parts = line.Split(',');
+            parts[0] = (++_idCounter).ToString("D11");
+            line = string.Join(",", parts);
 
-        await File.AppendAllTextAsync(_filePath, line);
+            await File.AppendAllTextAsync(_filePath, line);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public async Task<Booking?> GetByBookingIdAsync(string id)
@@ -50,8 +58,8 @@ public class BookingRepository : IBookingRepository
         foreach (var line in lines)
         {
             var booking = ConvertFromCsv.ToBooking(line);
-            if(booking is not null) 
-            { 
+            if (booking is not null)
+            {
                 bookingsList.Add(booking);
             }
         }
@@ -59,22 +67,39 @@ public class BookingRepository : IBookingRepository
         return bookingsList;
     }
 
-    public async Task UpdateAsync(Booking newBooking)
+    public async Task<bool> UpdateAsync(Booking newBooking)
     {
-        var bookings = (await GetAllAsync()).ToList();
-        var index = bookings.FindIndex(b => b.Id == newBooking.Id);
-
-        if (index != -1)
+        try
         {
-            bookings[index] = newBooking;
-            await SaveAllAsync(bookings);
+            var bookings = (await GetAllAsync()).ToList();
+            var index = bookings.FindIndex(b => b.Id == newBooking.Id);
+
+            if (index != -1)
+            {
+                bookings[index] = newBooking;
+                await SaveAllAsync(bookings);
+            }
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
-        var bookings = (await GetAllAsync()).Where(b => b.Id != id).ToList();
-        await SaveAllAsync(bookings);
+        try
+        {
+            var bookings = (await GetAllAsync()).Where(b => b.Id != id).ToList();
+            await SaveAllAsync(bookings);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private async Task SaveAllAsync(IEnumerable<Booking> bookings)

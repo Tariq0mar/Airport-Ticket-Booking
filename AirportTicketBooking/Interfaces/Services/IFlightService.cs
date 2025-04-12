@@ -7,6 +7,6 @@ public interface IFlightService
     Task AddAsync(Flight flight);
     Task<Flight?> GetByIdAsync(string id);
     Task<IEnumerable<Flight>> GetAllAsync();
-    Task<bool> UpdateAsync(Flight flight);
-    Task<bool> DeleteAsync(string id);
+    Task UpdateAsync(Flight flight);
+    Task DeleteAsync(string id);
 }

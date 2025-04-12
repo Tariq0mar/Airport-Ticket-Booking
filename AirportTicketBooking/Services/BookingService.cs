@@ -4,33 +4,37 @@ using AirportTicketBooking.Models;
 using AirportTicketBooking.Repositories;
 
 namespace AirportTicketBooking.Services;
-
-class BookingService : IBookingService
+public class BookingService : IBookingService
 {
-    private IBookingRepository _repository;
+    private readonly IBookingRepository _repository = new BookingRepository();
 
-    public BookingService()
+    public async Task AddAsync(Booking booking)
     {
-        _repository = new BookingRepository();
+        await _repository.AddAsync(booking);
     }
 
-    public Task AddAsync(Booking booking)
+    public async Task<Booking?> GetByBookingIdAsync(string id)
     {
-        return _repository.AddAsync(booking);
+        return await _repository.GetByBookingIdAsync(id);
     }
 
-    public Task DeleteAsync(string id)
+    public async Task<IEnumerable<Booking>> GetByPassengerIdAsync(string id)
     {
-        return _repository.DeleteAsync(id);
+        return await _repository.GetByPassengerIdAsync(id);
     }
 
-    public Task<Booking?> GetAsync(string id)
+    public async Task<IEnumerable<Booking>> GetAllAsync()
     {
-        return _repository.GetByIdAsync(id);
+        return await _repository.GetAllAsync();
     }
 
-    public Task UpdateAsync(Booking booking)
+    public async Task DeleteAsync(string id)
     {
-        return _repository.UpdateAsync(booking);
+        await _repository.DeleteAsync(id);
+    }
+
+    public async Task UpdateAsync(Booking booking)
+    {
+        await _repository.UpdateAsync(booking);
     }
 }

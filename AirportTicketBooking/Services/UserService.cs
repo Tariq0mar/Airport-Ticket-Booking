@@ -9,35 +9,39 @@ class UserService : IUserService
 {
     private readonly IUserRepository _userRepository = new UserRepository();
 
-    public Task AddAsync(UserRole user)
+    public async Task AddAsync(User user)
     {
-        return _userRepository.AddAsync(user);
+        await _userRepository.AddAsync(user);
     }
 
-    public Task<UserRole?> GetByIdAsync(string id)
+    public async Task<User?> GetByIdAsync(string id)
     {
-        return _userRepository.GetByIdAsync(id);
+        return await _userRepository.GetByIdAsync(id);
     }
 
-    public Task<UserRole?> GetByEmailAsync(string id)
+    public async Task<User?> GetByEmailAsync(string id)
     {
-        return _userRepository.GetByEmailAsync(id);
+        return await _userRepository.GetByEmailAsync(id);
+    }
+    public async Task<IEnumerable<User>> GetAllAsync()
+    {
+        return await _userRepository.GetAllAsync();
     }
 
-    public Task RemoveAsync(string id)
+    public async Task RemoveAsync(string id)
     {
-        return _userRepository.DeleteAsync(id);
+        await _userRepository.DeleteAsync(id);
     }
 
-    public Task UpdateAsync(UserRole user)
+    public async Task UpdateAsync(User user)
     {
-        return _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateAsync(user);
     }
 
-    public async Task<UserRole?> UserAuthentication(string id, string password) 
+    public async Task<User?> UserAuthentication(string id, string password)
     {
         var user = await GetByIdAsync(id);
-        if(user is null || user.Password != password)
+        if (user is null || user.Password != password)
         {
             return null;
         }

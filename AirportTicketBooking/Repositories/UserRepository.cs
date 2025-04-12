@@ -10,14 +10,22 @@ class UserRepository : IUserRepository
     private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task AddAsync(User user)
+    public async Task<bool> AddAsync(User user)
     {
-        var line = $"{ConvertToCsv.FromUser(user)}{Environment.NewLine}";
-        var parts = line.Split(',');
-        parts[0] = (++_idCounter).ToString("D11");
-        line = string.Join(",", parts);
+        try
+        {
+            var line = $"{ConvertToCsv.FromUser(user)}{Environment.NewLine}";
+            var parts = line.Split(',');
+            parts[0] = (++_idCounter).ToString("D11");
+            line = string.Join(",", parts);
 
-        await File.AppendAllTextAsync(_filePath, line + Environment.NewLine);
+            await File.AppendAllTextAsync(_filePath, line + Environment.NewLine);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public async Task<User?> GetByIdAsync(string id)
@@ -40,8 +48,8 @@ class UserRepository : IUserRepository
         foreach (var line in lines)
         {
             var user = ConvertFromCsv.ToUser(line);
-            
-            if(user is not null)
+
+            if (user is not null)
             {
                 usersList.Add(user);
             }
@@ -50,18 +58,34 @@ class UserRepository : IUserRepository
         return usersList;
     }
 
-    public async Task UpdateAsync(User user)
+    public async Task<bool> UpdateAsync(User user)
     {
-        var users = await GetAllAsync();
-        var updatedUsers = users.Select(u => u.UserId == user.UserId ? user : u).ToList();
-        await SaveAllAsync(updatedUsers);
+        try
+        {
+            var users = await GetAllAsync();
+            var updatedUsers = users.Select(u => u.UserId == user.UserId ? user : u).ToList();
+            await SaveAllAsync(updatedUsers);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
-        var users = await GetAllAsync();
-        var filteredUsers = users.Where(u => u.UserId != id);
-        await SaveAllAsync(filteredUsers);
+        try
+        {
+            var users = await GetAllAsync();
+            var filteredUsers = users.Where(u => u.UserId != id);
+            await SaveAllAsync(filteredUsers);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private async Task SaveAllAsync(IEnumerable<User> users)

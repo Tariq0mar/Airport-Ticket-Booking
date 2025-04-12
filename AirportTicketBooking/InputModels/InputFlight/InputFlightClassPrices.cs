@@ -2,7 +2,7 @@
 
 namespace AirportTicketBooking.InputModels.InputFlight;
 
-class InputFlightClassPrices
+public static class InputFlightClassPrices
 {
     public static Dictionary<FlightClass, float> Input()
     {

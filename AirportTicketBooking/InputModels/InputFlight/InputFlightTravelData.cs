@@ -1,10 +1,9 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Models;
-using System;
 
 namespace AirportTicketBooking.InputModels.InputFlight;
 
-public class InputFlightTravelData
+public static class InputFlightTravelData
 {
     public static TravelData Input(int type)
     {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AirportTicketBooking.Enums;
-using AirportTicketBooking.Models;
+﻿using AirportTicketBooking.Models;
 
 namespace AirportTicketBooking.InputModels.InputFlight;
 
-public class InputFlight
+public static class InputFlight
 {
     public static Flight Input()
     {

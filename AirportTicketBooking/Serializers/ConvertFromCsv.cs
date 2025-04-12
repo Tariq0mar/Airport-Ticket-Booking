@@ -1,6 +1,6 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Models;
-using AirportTicketBooking.Validators;
+using AirportTicketBooking.Validators.CsvLineValidators;
 using System.Globalization;
 
 namespace AirportTicketBooking.Convert;
@@ -9,7 +9,8 @@ public class ConvertFromCsv
 {
     public static Flight? ToFlight(string line)
     {
-        if (!CsvLineValidator.FlightLineValidator(line))
+        var validator = new FlightLineValidator();
+        if (validator.LineValidator(line))
         {
             return null;
         }
@@ -55,7 +56,8 @@ public class ConvertFromCsv
 
     public static Booking? ToBooking(string line)
     {
-        if (!CsvLineValidator.BookingLineValidator(line))
+        var validator = new BookingLineValidator();
+        if (validator.LineValidator(line))
         {
             return null;
         }
@@ -74,7 +76,8 @@ public class ConvertFromCsv
     {
         var parts = line.Split(',');
 
-        if (!CsvLineValidator.UserLineValidator(line))
+        var validator = new UserLineValidator();
+        if (validator.LineValidator(line))
         {
             return null;
         }
@@ -84,8 +87,8 @@ public class ConvertFromCsv
             return new Manager
             {
                 UserId = parts[0],
-                Role = Enum.Parse<UserRole>(parts[1]), 
-                Name = parts[2], 
+                Role = Enum.Parse<UserRole>(parts[1]),
+                Name = parts[2],
                 Email = parts[3],
                 Password = parts[4],
                 PhoneNumber = parts[5]

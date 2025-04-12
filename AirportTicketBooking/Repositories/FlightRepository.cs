@@ -1,6 +1,6 @@
-﻿using AirportTicketBooking.Models;
-using AirportTicketBooking.Convert;
+﻿using AirportTicketBooking.Convert;
 using AirportTicketBooking.Interfaces.Repositories;
+using AirportTicketBooking.Models;
 using AirportTicketBooking.Serializers;
 
 namespace AirportTicketBooking.Repositories;
@@ -10,14 +10,22 @@ public class FlightRepository : IFlightRepository
     private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task AddAsync(Flight flight)
+    public async Task<bool> AddAsync(Flight flight)
     {
-        var line = $"{ConvertToCsv.FromFlight(flight)}{Environment.NewLine}";
-        var parts = line.Split(',');
-        parts[0] = (++_idCounter).ToString("D11");
-        line = string.Join(",", parts);
+        try
+        {
+            var line = $"{ConvertToCsv.FromFlight(flight)}{Environment.NewLine}";
+            var parts = line.Split(',');
+            parts[0] = (++_idCounter).ToString("D11");
+            line = string.Join(",", parts);
 
-        await File.AppendAllTextAsync(_filePath, line);
+            await File.AppendAllTextAsync(_filePath, line);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public async Task<Flight?> GetByIdAsync(string id)
@@ -43,22 +51,38 @@ public class FlightRepository : IFlightRepository
         return flightList;
     }
 
-    public async Task UpdateAsync(Flight newFlight)
+    public async Task<bool> UpdateAsync(Flight newFlight)
     {
-        var flights = (await GetAllAsync()).ToList();
-        var index = flights.FindIndex(b => b.FlightId == newFlight.FlightId);
-
-        if (index != -1)
+        try
         {
-            flights[index] = newFlight;
-            await SaveAllAsync(flights);
+            var flights = (await GetAllAsync()).ToList();
+            var index = flights.FindIndex(b => b.FlightId == newFlight.FlightId);
+
+            if (index != -1)
+            {
+                flights[index] = newFlight;
+                await SaveAllAsync(flights);
+            }
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
-        var Flights = (await GetAllAsync()).Where(b => b.FlightId != id).ToList();
-        await SaveAllAsync(Flights);
+        try
+        {
+            var Flights = (await GetAllAsync()).Where(b => b.FlightId != id).ToList();
+            await SaveAllAsync(Flights);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private async Task SaveAllAsync(IEnumerable<Flight> flights)

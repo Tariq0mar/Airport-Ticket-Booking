@@ -1,11 +1,4 @@
-﻿using AirportTicketBooking.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AirportTicketBooking.Presentations.Actions.FlightActions
+﻿namespace AirportTicketBooking.Presentations.Actions.FlightActions
 {
     class BookingPassengerActions
     {

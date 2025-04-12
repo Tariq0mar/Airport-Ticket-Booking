@@ -1,5 +1,5 @@
-﻿using AirportTicketBooking.Models;
-using AirportTicketBooking.Enums;
+﻿using AirportTicketBooking.Enums;
+using AirportTicketBooking.Models;
 
 namespace AirportTicketBooking.Serializers;
 
@@ -22,7 +22,7 @@ class ConvertToCsv
 
     public static string FromUser(User user)
     {
-        if(user.Role == UserRole.Passenger)
+        if (user.Role == UserRole.Passenger)
         {
             var passenger = (Passenger)(user);
             return FromUser(passenger);
@@ -35,7 +35,7 @@ class ConvertToCsv
     }
     private static string FromUser(Manager manager)
     {
-      return $"{manager.UserId},{manager.Role},{manager.Name},{manager.Email},{manager.Password},{manager.PhoneNumber}";
+        return $"{manager.UserId},{manager.Role},{manager.Name},{manager.Email},{manager.Password},{manager.PhoneNumber}";
     }
     private static string FromUser(Passenger passenger)
     {

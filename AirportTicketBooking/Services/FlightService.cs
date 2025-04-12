@@ -19,6 +19,11 @@ public class FlightService : IFlightService
         await _flightRepository.DeleteAsync(id);
     }
 
+    public async Task<IEnumerable<Flight>> GetAllAsync()
+    {
+        return await _flightRepository.GetAllAsync();
+    }
+
     public async Task<Flight?> GetByIdAsync(string id)
     {
         return await _flightRepository.GetByIdAsync(id);

@@ -1,7 +1,5 @@
 ﻿using AirportTicketBooking.Enums;
 using AirportTicketBooking.Services;
-using AirportTicketBooking.Repositories;
-using AirportTicketBooking.Models;
 
 namespace AirportTicketBooking.Presentations.Screens;
 
