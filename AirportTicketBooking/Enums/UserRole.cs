@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace AirportTicketBooking.Enums;
+﻿namespace AirportTicketBooking.Enums;
 
 public enum UserRole
 {
-    Manager,
-    Passenger
+    Passenger = 1,
+    Manager = 2
 }
