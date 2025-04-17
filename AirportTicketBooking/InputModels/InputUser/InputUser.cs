@@ -16,14 +16,19 @@ public static class InputUser
             input = Console.ReadLine();
         }
 
-        if (number == 1)
+        const int managerNumber = 1, passengerNumber = 2;
+        switch (number)
         {
-            return InputManager();
+            case managerNumber:
+                return InputManager();
+                break;
+            case passengerNumber:
+                return InputPassenger();
+                break;
+            default:
+                return null;
         }
-        else
-        {
-            return InputPassenger();
-        }
+
     }
     public static Manager InputManager()
     {
