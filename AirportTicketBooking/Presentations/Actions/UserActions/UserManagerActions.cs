@@ -125,6 +125,6 @@ public class UserManagerActions
         }
 
         var success = await _userService.DeleteAsync(userId);
-        Console.WriteLine(success ? "User deleted successfully." : "Failed to delete user.");
+        Console.WriteLine(success ? "User updated successfully." : "Failed to update user.");
     }
 }
