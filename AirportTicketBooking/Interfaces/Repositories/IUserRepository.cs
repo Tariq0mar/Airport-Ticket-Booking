@@ -4,7 +4,7 @@ namespace AirportTicketBooking.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    Task<bool> AddAsync(User user);
+    Task<string> AddAsync(User user);
     Task<User?> GetByIdAsync(string id);
     Task<User?> GetByEmailAsync(string email);
     Task<IEnumerable<User>> GetAllAsync();
