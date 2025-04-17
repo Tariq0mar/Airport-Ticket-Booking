@@ -114,7 +114,7 @@ public static class UserManagerActions
             Console.WriteLine("User not found.");
         }
     }
-
+    
     public static async Task DeleteUser()
     {
         Console.WriteLine("Enter User ID:");
