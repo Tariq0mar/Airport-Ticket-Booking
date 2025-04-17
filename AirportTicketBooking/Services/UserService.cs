@@ -28,7 +28,7 @@ public class UserService : IUserService
         return await _userRepository.GetAllAsync();
     }
 
-    public async Task<bool> RemoveAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
         return await _userRepository.DeleteAsync(id);
     }
