@@ -3,11 +3,11 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.FlightActions;
 
-public class BookingPassengerActions
+public static class BookingPassengerActions
 {
-    private readonly IFlightService _flightService = new FlightService();
+    private static readonly IFlightService _flightService = new FlightService();
 
-    public async Task GetFlightById()
+    public static async Task GetFlightById()
     {
         Console.WriteLine("Enter Flight ID:");
         var flightId = Console.ReadLine();
@@ -24,7 +24,7 @@ public class BookingPassengerActions
             : "Flight not found.");
     }
 
-    public async Task GetAllFlights()
+    public static async Task GetAllFlights()
     {
         var flights = await _flightService.GetAllAsync();
         foreach (var flight in flights)

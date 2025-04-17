@@ -5,18 +5,18 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.BookingActions; 
 
-public class BookingPassengerActions
+public static class BookingPassengerActions
 {
-    private readonly IBookingService _bookingService = new BookingService();
+    private static readonly IBookingService _bookingService = new BookingService();
 
-    public async Task AddBooking()
+    public static async Task AddBooking()
     {
         var booking = InputBooking.Input();
         var result = await _bookingService.AddAsync(booking);
         Console.WriteLine($"Booking added with ID: {result}");
     }
 
-    public async Task GetBookingsByPassengerId()
+    public static async Task GetBookingsByPassengerId()
     {
         Console.WriteLine("Enter passenger ID:");
         var passengerId = Console.ReadLine();
