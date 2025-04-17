@@ -9,6 +9,6 @@ public interface IUserService
     Task<User?> GetByEmailAsync(string email);
     Task<IEnumerable<User>> GetAllAsync();
     Task<bool> UpdateAsync(User user);
-    Task<bool> RemoveAsync(string id);
+    Task<bool> DeleteAsync(string id);
 }
 
