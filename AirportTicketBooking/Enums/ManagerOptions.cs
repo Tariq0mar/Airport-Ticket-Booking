@@ -2,17 +2,22 @@
 
 public enum ManagerOptions
 {
-    GetUser = 1,
-    GetAllUsers = 2,
-    UpdateUser = 3,
-    DeleteUser = 4,
-    GetBooking = 5,
-    GetAllBookings = 6,
-    UpdateBooking = 7,
-    DeleteBooking = 8,
-    GetFlight = 9,
-    GetAllFlights = 10,
-    UpdateFlights = 11,
-    DeleteFlights = 12,
-    Exit = 13
+    AddUser = 1,
+    GetUserById = 2,
+    GetUserByEmail = 3,
+    GetAllUsers = 4,
+    UpdateUser = 5,
+    DeleteUser = 6,
+    AddBooking = 7,
+    GetBookingById = 8,
+    GetBookingByPassengerId = 9,
+    GetAllBookings = 10,
+    UpdateBooking = 11,
+    DeleteBooking = 12,
+    AddFlight = 13,
+    GetFlight = 14,
+    GetAllFlights = 15,
+    UpdateFlights = 16,
+    DeleteFlights = 17,
+    Exit = 18
 }
