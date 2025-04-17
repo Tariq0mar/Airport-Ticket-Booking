@@ -9,14 +9,9 @@ public class FlightService : IFlightService
 {
     private readonly IFlightRepository _flightRepository = new FlightRepository();
 
-    public async Task AddAsync(Flight flight)
+    public async Task<string> AddAsync(Flight flight)
     {
-        await _flightRepository.AddAsync(flight);
-    }
-
-    public async Task DeleteAsync(string id)
-    {
-        await _flightRepository.DeleteAsync(id);
+        return await _flightRepository.AddAsync(flight);
     }
 
     public async Task<IEnumerable<Flight>> GetAllAsync()
@@ -29,8 +24,13 @@ public class FlightService : IFlightService
         return await _flightRepository.GetByIdAsync(id);
     }
 
-    public async Task UpdateAsync(Flight flight)
+    public async Task<bool> UpdateAsync(Flight flight)
     {
-        await _flightRepository.UpdateAsync(flight);
+        return await _flightRepository.UpdateAsync(flight);
+    }
+
+    public async Task<bool> DeleteAsync(string id)
+    {
+        return await _flightRepository.DeleteAsync(id);
     }
 }

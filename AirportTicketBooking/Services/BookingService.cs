@@ -8,9 +8,9 @@ public class BookingService : IBookingService
 {
     private readonly IBookingRepository _repository = new BookingRepository();
 
-    public async Task AddAsync(Booking booking)
+    public async Task<string> AddAsync(Booking booking)
     {
-        await _repository.AddAsync(booking);
+        return await _repository.AddAsync(booking);
     }
 
     public async Task<Booking?> GetByBookingIdAsync(string id)
@@ -28,13 +28,13 @@ public class BookingService : IBookingService
         return await _repository.GetAllAsync();
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
-        await _repository.DeleteAsync(id);
+        return await _repository.DeleteAsync(id);
     }
 
-    public async Task UpdateAsync(Booking booking)
+    public async Task<bool> UpdateAsync(Booking booking)
     {
-        await _repository.UpdateAsync(booking);
+        return await _repository.UpdateAsync(booking);
     }
 }
