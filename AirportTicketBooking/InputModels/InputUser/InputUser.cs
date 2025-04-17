@@ -5,9 +5,30 @@ namespace AirportTicketBooking.InputModels.InputUser;
 
 public static class InputUser
 {
-    public static User InputManager()
+    public static User Input()
     {
-        var manager = new Manager {
+        Console.WriteLine("Enter 1 if you want to create Manager, and 2 if you want to create Passenger");
+        var input = Console.ReadLine();
+        int number;
+        while (string.IsNullOrWhiteSpace(input) || !int.TryParse(input, out number) || (number != 1 && number != 2))
+        {
+            Console.WriteLine("invalid input, try again");
+            input = Console.ReadLine();
+        }
+
+        if (number == 1)
+        {
+            return InputManager();
+        }
+        else
+        {
+            return InputPassenger();
+        }
+    }
+    public static Manager InputManager()
+    {
+        var manager = new Manager
+        {
             UserId = string.Empty,
             Role = UserRole.Manager,
             Name = InputName(),
@@ -18,7 +39,7 @@ public static class InputUser
 
         return manager;
     }
-    public static User InputPassenger()
+    public static Passenger InputPassenger()
     {
         var passenger = new Passenger
         {
