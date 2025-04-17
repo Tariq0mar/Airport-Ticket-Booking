@@ -115,4 +115,17 @@ public class UserManagerActions
         }
     }
 
-    public
+    public async Task DeleteUser()
+    {
+        Console.WriteLine("Enter User ID:");
+        var userId = Console.ReadLine();
+        while (string.IsNullOrWhiteSpace(userId) || int.TryParse(userId, out _))
+        {
+            Console.WriteLine("Invalid input, try again");
+            userId = Console.ReadLine();
+        }
+
+        var success = await _userService.DeleteAsync(userId);
+        Console.WriteLine(success ? "User updated successfully." : "Failed to update user.");
+    }
+}
