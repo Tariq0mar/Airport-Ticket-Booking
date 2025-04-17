@@ -114,5 +114,17 @@ public class UserManagerActions
             Console.WriteLine("User not found.");
         }
     }
+    public async Task DeleteUser()
+    {
+        Console.WriteLine("Enter User ID:");
+        var userId = Console.ReadLine();
+        while (string.IsNullOrWhiteSpace(userId) || int.TryParse(userId, out _))
+        {
+            Console.WriteLine("Invalid input, try again");
+            userId = Console.ReadLine();
+        }
 
-    public
+        var success = await _userService.DeleteAsync(userId);
+        Console.WriteLine(success ? "User deleted successfully." : "Failed to delete user.");
+    }
+}
