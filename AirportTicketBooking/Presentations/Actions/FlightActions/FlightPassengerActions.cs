@@ -3,7 +3,7 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.FlightActions;
 
-public static class BookingPassengerActions
+public static class FlightPassengerActions
 {
     private static readonly IFlightService _flightService = new FlightService();
 
