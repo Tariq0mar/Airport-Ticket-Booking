@@ -10,7 +10,7 @@ public class FlightRepository : IFlightRepository
     private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
     private static int _idCounter = 0;
 
-    public async Task<bool> AddAsync(Flight flight)
+    public async Task<string> AddAsync(Flight flight)
     {
         try
         {
@@ -20,11 +20,11 @@ public class FlightRepository : IFlightRepository
             line = string.Join(",", parts);
 
             await File.AppendAllTextAsync(_filePath, line);
-            return true;
+            return parts[0];
         }
         catch
         {
-            return false;
+            return (0).ToString("D11");
         }
     }
 
