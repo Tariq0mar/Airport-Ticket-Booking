@@ -20,14 +20,13 @@ public class AppManagerMenu
 
             Console.Write("Select an option: ");
 
-            var input = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(input) && !int.TryParse(input, out _))
+            int number;
+            while (!int.TryParse(Console.ReadLine(), out number) || number is not 1 or 2)
             {
                 Console.WriteLine("invalid input, try again");
-                input = Console.ReadLine();
             }
 
-            var selectedOption = (ManagerOptions)int.Parse(input);
+            var selectedOption = (ManagerOptions)number;
 
             switch (selectedOption)
             {

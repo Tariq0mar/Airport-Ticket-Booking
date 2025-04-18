@@ -11,7 +11,7 @@ public class AppPassengerMenu
     {
         while (true)
         {
-            Console.WriteLine("--- Passenger Menu ---");
+            Console.WriteLine("--- Manager Menu ---");
 
             foreach (var option in Enum.GetValues(typeof(PassengerOptions)))
             {
@@ -20,14 +20,13 @@ public class AppPassengerMenu
 
             Console.Write("Select an option: ");
 
-            if (!int.TryParse(Console.ReadLine(), out int input))
+            int number;
+            while (!int.TryParse(Console.ReadLine(), out number) || number is not 1 or 2)
             {
-                Console.WriteLine("Invalid input. Please enter a number.");
-                Console.ReadKey();
-                continue;
+                Console.WriteLine("invalid input, try again");
             }
 
-            var selectedOption = (PassengerOptions)input;
+            var selectedOption = (PassengerOptions)number;
 
             switch (selectedOption)
             {
