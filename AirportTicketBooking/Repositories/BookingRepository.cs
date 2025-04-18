@@ -7,7 +7,7 @@ namespace AirportTicketBooking.Repositories;
 
 public class BookingRepository : IBookingRepository
 {
-    private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
+    private readonly string _filePath = @"../../../DataBase/bookings.csv";
     private static int _idCounter = 0;
 
     public async Task<string> AddAsync(Booking booking)

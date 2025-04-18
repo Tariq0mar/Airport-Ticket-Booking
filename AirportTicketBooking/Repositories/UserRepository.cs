@@ -7,7 +7,7 @@ namespace AirportTicketBooking.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
+    private readonly string _filePath = @"../../../DataBase/users.csv";
     private static int _idCounter = 0;
 
     public async Task<string> AddAsync(User user)
@@ -20,6 +20,7 @@ public class UserRepository : IUserRepository
             line = string.Join(",", parts);
 
             await File.AppendAllTextAsync(_filePath, line + Environment.NewLine);
+            Console.WriteLine(line);
             return parts[0];
         }
         catch
