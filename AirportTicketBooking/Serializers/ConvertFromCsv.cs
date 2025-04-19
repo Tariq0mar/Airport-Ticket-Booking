@@ -3,14 +3,14 @@ using AirportTicketBooking.Models;
 using AirportTicketBooking.Validators.CsvLineValidators;
 using System.Globalization;
 
-namespace AirportTicketBooking.Convert;
+namespace AirportTicketBooking.Serializers;
 
 public class ConvertFromCsv
 {
     public static Flight? ToFlight(string line)
     {
         var validator = new FlightLineValidator();
-        if (validator.LineValidator(line))
+        if (!validator.LineValidator(line))
         {
             return null;
         }
@@ -57,7 +57,7 @@ public class ConvertFromCsv
     public static Booking? ToBooking(string line)
     {
         var validator = new BookingLineValidator();
-        if (validator.LineValidator(line))
+        if (!validator.LineValidator(line))
         {
             return null;
         }
@@ -77,7 +77,7 @@ public class ConvertFromCsv
         var parts = line.Split(',');
 
         var validator = new UserLineValidator();
-        if (validator.LineValidator(line))
+        if (!validator.LineValidator(line))
         {
             return null;
         }

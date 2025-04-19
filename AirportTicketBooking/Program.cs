@@ -8,7 +8,7 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        await UserLoginScreen.Login();
+        await UserManagerActions.GetAllUsers();
     }
 }
 
