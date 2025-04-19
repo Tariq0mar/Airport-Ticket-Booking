@@ -11,12 +11,12 @@ class UserLoginScreen
         if (user is Passenger)
         {
             Console.WriteLine($"Welcome passenger {user.Name}");
-            PassengerDashboardScreen.PassengerScreen();
+            await PassengerDashboardScreen.PassengerScreen();
         }
         else if (user is Manager)
         {
             Console.WriteLine($"Welcome Manager {user.Name}");
-            ManagerDashboardScreen.ManagerScreen();
+            await ManagerDashboardScreen.ManagerScreen();
         }
     }
 }

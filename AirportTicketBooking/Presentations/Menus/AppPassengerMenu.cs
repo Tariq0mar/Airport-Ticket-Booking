@@ -21,7 +21,7 @@ public class AppPassengerMenu
             Console.Write("Select an option: ");
 
             int number;
-            while (!int.TryParse(Console.ReadLine(), out number) || number is not 1 or 2)
+            while (!int.TryParse(Console.ReadLine(), out number))
             {
                 Console.WriteLine("invalid input, try again");
             }

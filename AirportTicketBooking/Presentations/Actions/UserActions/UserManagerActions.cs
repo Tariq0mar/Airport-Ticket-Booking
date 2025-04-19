@@ -54,10 +54,12 @@ public static class UserManagerActions
 
     public static async Task GetAllUsers()
     {
+        Console.WriteLine("=====List of Users=====");
         var users = await _userService.GetAllAsync();
         foreach (var user in users)
         {
             Console.WriteLine(user.ToString());
+            Console.WriteLine("-------------------");
         }
     }
 

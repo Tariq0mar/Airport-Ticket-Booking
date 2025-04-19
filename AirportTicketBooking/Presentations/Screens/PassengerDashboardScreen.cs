@@ -8,15 +8,15 @@ public static class PassengerDashboardScreen
 {
     private static readonly AppPassengerMenu _menu = new AppPassengerMenu();
 
-    public static void PassengerScreen()
+    public static async Task PassengerScreen()
     {
         while (true)
         {
-            Console.WriteLine("Enter 1 if want to open the actions menu"
+            Console.WriteLine("Enter 1 if want to open the actions menu\n"
                               + "Enter 2 if want to logout");
 
             int number;
-            while (!int.TryParse(Console.ReadLine(), out number) || number is not 1 or 2)
+            while (!int.TryParse(Console.ReadLine(), out number) || number is not (1 or 2))
             {
                 Console.WriteLine("invalid input, try again");
             }
@@ -24,7 +24,7 @@ public static class PassengerDashboardScreen
             switch (number)
             {
                 case 1:
-                    _menu.Show();
+                    await _menu.Show();
                     break;
                 case 2:
                     return;
