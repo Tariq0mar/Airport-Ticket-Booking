@@ -5,18 +5,18 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.BookingActions;
 
-public class BookingManagerActions
+public static class BookingManagerActions
 {
-    private readonly IBookingService _bookingService = new BookingService();
+    private static readonly IBookingService _bookingService = new BookingService();
 
-    public async Task AddBooking()
+    public static async Task AddBooking()
     {
         var booking = InputBooking.Input();
         var result = await _bookingService.AddAsync(booking);
         Console.WriteLine($"Booking added with ID: {result}");
     }
 
-    public async Task GetBookingById()
+    public static async Task GetBookingById()
     {
         Console.WriteLine("Enter Booking ID:");
         var bookingId = Console.ReadLine();
@@ -32,7 +32,7 @@ public class BookingManagerActions
                           : "Booking not found.");
     }
 
-    public async Task GetBookingsByPassengerId()
+    public static async Task GetBookingsByPassengerId()
     {
         Console.WriteLine("Enter passenger ID:");
         var passengerId = Console.ReadLine();
@@ -49,7 +49,7 @@ public class BookingManagerActions
         }
     }
 
-    public async Task GetAllBookings()
+    public static async Task GetAllBookings()
     {
         var bookings = await _bookingService.GetAllAsync();
         foreach (var booking in bookings)
@@ -58,7 +58,7 @@ public class BookingManagerActions
         }
     }
 
-    public async Task UpdateBooking()
+    public static async Task UpdateBooking()
     {
         Console.WriteLine("Enter Booking ID:");
         var bookingId = Console.ReadLine();
@@ -92,7 +92,7 @@ public class BookingManagerActions
         Console.ReadLine();
     }
 
-    public async Task DeleteBooking()
+    public static async Task DeleteBooking()
     {
         Console.WriteLine("Enter Booking ID:");
         var bookingId = Console.ReadLine();

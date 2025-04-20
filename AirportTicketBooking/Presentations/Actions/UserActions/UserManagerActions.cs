@@ -6,11 +6,11 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.UserActions;
 
-public class UserManagerActions
+public static class UserManagerActions
 {
-    private readonly IUserService _userService = new UserService();
+    private static readonly IUserService _userService = new UserService();
 
-    public async Task AddUser()
+    public static async Task AddUser()
     {
         var user = InputUser.Input();
 
@@ -18,7 +18,7 @@ public class UserManagerActions
         Console.WriteLine($"User added with ID: {result}");
     }
 
-    public async Task GetUserById()
+    public static async Task GetUserById()
     {
         Console.WriteLine("Enter User ID:");
         var userId = Console.ReadLine();
@@ -35,7 +35,7 @@ public class UserManagerActions
             : "User not found.");
     }
 
-    public async Task GetUserByEmail()
+    public static async Task GetUserByEmail()
     {
         Console.WriteLine("Enter User Email:");
         var email = Console.ReadLine();
@@ -52,16 +52,18 @@ public class UserManagerActions
             : "User not found.");
     }
 
-    public async Task GetAllUsers()
+    public static async Task GetAllUsers()
     {
+        Console.WriteLine("=====List of Users=====");
         var users = await _userService.GetAllAsync();
         foreach (var user in users)
         {
             Console.WriteLine(user.ToString());
+            Console.WriteLine("-------------------");
         }
     }
 
-    public async Task UpdateUser()
+    public static async Task UpdateUser()
     {
         Console.WriteLine("Enter User ID:");
         var userId = Console.ReadLine();
@@ -114,5 +116,18 @@ public class UserManagerActions
             Console.WriteLine("User not found.");
         }
     }
+    
+    public static async Task DeleteUser()
+    {
+        Console.WriteLine("Enter User ID:");
+        var userId = Console.ReadLine();
+        while (string.IsNullOrWhiteSpace(userId) || int.TryParse(userId, out _))
+        {
+            Console.WriteLine("Invalid input, try again");
+            userId = Console.ReadLine();
+        }
 
-    public
+        var success = await _userService.DeleteAsync(userId);
+        Console.WriteLine(success ? "User updated successfully." : "Failed to update user.");
+    }
+}

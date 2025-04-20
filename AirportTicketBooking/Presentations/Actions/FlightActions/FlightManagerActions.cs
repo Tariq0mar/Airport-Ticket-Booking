@@ -5,18 +5,18 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.FlightActions;
 
-public class FlightManagerActions
+public static class FlightManagerActions
 {
-    private readonly IFlightService _flightService = new FlightService();
+    private static readonly IFlightService _flightService = new FlightService();
 
-    public async Task AddFlight()
+    public static async Task AddFlight()
     {
         var flight = InputFlight.Input();
         var result = await _flightService.AddAsync(flight);
         Console.WriteLine($"Flight added with ID: {result}");
     }
 
-    public async Task GetFlightById()
+    public static async Task GetFlightById()
     {
         Console.WriteLine("Enter Flight ID:");
         var flightId = Console.ReadLine();
@@ -33,7 +33,7 @@ public class FlightManagerActions
             : "Flight not found.");
     }
 
-    public async Task GetAllFlights()
+    public static async Task GetAllFlights()
     {
         var flights = await _flightService.GetAllAsync();
         foreach (var flight in flights)
@@ -42,7 +42,7 @@ public class FlightManagerActions
         }
     }
 
-    public async Task UpdateFlight()
+    public static async Task UpdateFlight()
     {
         Console.WriteLine("Enter Flight ID:");
         var flightId = Console.ReadLine();
@@ -75,7 +75,7 @@ public class FlightManagerActions
         }
     }
 
-    public async Task DeleteFlight()
+    public static async Task DeleteFlight()
     {
         Console.WriteLine("Enter Flight ID:");
         var flightId = Console.ReadLine();

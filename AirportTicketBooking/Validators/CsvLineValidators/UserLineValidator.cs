@@ -7,7 +7,7 @@ public class UserLineValidator : IValidateLine
     public bool LineValidator(string line)
     {
         var parts = line.Split(',');
-        if (parts.Length != 5 && parts.Length != 6)
+        if (parts.Length != 6 && parts.Length != 7)
         {
             return false;
         }

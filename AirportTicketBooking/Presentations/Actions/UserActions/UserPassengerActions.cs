@@ -3,11 +3,11 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.UserActions;
 
-public class BookingPassengerActions
+public static class UserPassengerActions
 {
-    private readonly IUserService _userService = new UserService();
+    private static readonly IUserService _userService = new UserService();
 
-    public async Task GetUserById()
+    public static async Task GetUserById()
     {
         Console.WriteLine("Enter User ID:");
         var userId = Console.ReadLine();

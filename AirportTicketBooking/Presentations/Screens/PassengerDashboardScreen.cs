@@ -1,24 +1,33 @@
 ﻿using AirportTicketBooking.Enums;
+using AirportTicketBooking.Presentations.Menus;
+
 
 namespace AirportTicketBooking.Presentations.Screens;
 
-class PassengerDashboardScreen
+public static class PassengerDashboardScreen
 {
-    public static void Menu()
-    {
-        Console.WriteLine("Actions list:");
-        foreach (var option in Enum.GetValues(typeof(PassengerOptions)))
-        {
-            Console.WriteLine($"{(int)option} - {option}");
-        }
+    private static readonly AppPassengerMenu _menu = new AppPassengerMenu();
 
+    public static async Task PassengerScreen()
+    {
         while (true)
         {
+            Console.WriteLine("Enter 1 if want to open the actions menu\n"
+                              + "Enter 2 if want to logout");
+
             int number;
-            Console.Write($"Enter number of option you want");
-            while (!int.TryParse(Console.ReadLine(), out number))
+            while (!int.TryParse(Console.ReadLine(), out number) || number is not (1 or 2))
             {
-                Console.Write("Invalid input. Enter a valid number from the list");
+                Console.WriteLine("invalid input, try again");
+            }
+
+            switch (number)
+            {
+                case 1:
+                    await _menu.Show();
+                    break;
+                case 2:
+                    return;
             }
         }
     }

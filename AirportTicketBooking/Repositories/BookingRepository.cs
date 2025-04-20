@@ -1,4 +1,4 @@
-﻿using AirportTicketBooking.Convert;
+﻿using AirportTicketBooking.Serializers;
 using AirportTicketBooking.Interfaces.Repositories;
 using AirportTicketBooking.Models;
 using AirportTicketBooking.Serializers;
@@ -7,10 +7,10 @@ namespace AirportTicketBooking.Repositories;
 
 public class BookingRepository : IBookingRepository
 {
-    private readonly string _filePath = Path.GetFullPath(Path.Combine("..", "..", "..", "DataBase", "flights.csv"));
+    private readonly string _filePath = @"../../../DataBase/bookings.csv";
     private static int _idCounter = 0;
 
-    public async Task<bool> AddAsync(Booking booking)
+    public async Task<string> AddAsync(Booking booking)
     {
         try
         {
@@ -20,11 +20,11 @@ public class BookingRepository : IBookingRepository
             line = string.Join(",", parts);
 
             await File.AppendAllTextAsync(_filePath, line);
-            return true;
+            return parts[0];
         }
         catch
         {
-            return false;
+            return (0).ToString("D11");
         }
     }
 

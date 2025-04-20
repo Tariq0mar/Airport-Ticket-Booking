@@ -3,7 +3,7 @@ using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Screens;
 
-class InputAccountData
+public class InputAccountData
 {
     private static readonly UserService _userService = new UserService();
 
