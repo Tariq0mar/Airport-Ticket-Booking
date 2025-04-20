@@ -5,13 +5,13 @@ using AirportTicketBooking.Repositories;
 
 namespace AirportTicketBooking.Services;
 
-class UserService : IUserService
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository = new UserRepository();
 
-    public async Task AddAsync(User user)
+    public async Task<string> AddAsync(User user)
     {
-        await _userRepository.AddAsync(user);
+        return await _userRepository.AddAsync(user);
     }
 
     public async Task<User?> GetByIdAsync(string id)
@@ -28,14 +28,14 @@ class UserService : IUserService
         return await _userRepository.GetAllAsync();
     }
 
-    public async Task RemoveAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
-        await _userRepository.DeleteAsync(id);
+        return await _userRepository.DeleteAsync(id);
     }
 
-    public async Task UpdateAsync(User user)
+    public async Task<bool> UpdateAsync(User user)
     {
-        await _userRepository.UpdateAsync(user);
+        return await _userRepository.UpdateAsync(user);
     }
 
     public async Task<User?> UserAuthentication(string id, string password)
