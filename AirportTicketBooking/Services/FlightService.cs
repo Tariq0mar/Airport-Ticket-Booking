@@ -7,30 +7,34 @@ namespace AirportTicketBooking.Services;
 
 public class FlightService : IFlightService
 {
-    private readonly IFlightRepository _flightRepository = new FlightRepository();
+    private readonly IFlightRepository _repository;
 
+    public FlightService(IFlightRepository repository)
+    {
+        _repository = repository;
+    }
     public async Task<string> AddAsync(Flight flight)
     {
-        return await _flightRepository.AddAsync(flight);
+        return await _repository.AddAsync(flight);
     }
 
     public async Task<IEnumerable<Flight>> GetAllAsync()
     {
-        return await _flightRepository.GetAllAsync();
+        return await _repository.GetAllAsync();
     }
 
     public async Task<Flight?> GetByIdAsync(string id)
     {
-        return await _flightRepository.GetByIdAsync(id);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task<bool> UpdateAsync(Flight flight)
     {
-        return await _flightRepository.UpdateAsync(flight);
+        return await _repository.UpdateAsync(flight);
     }
 
     public async Task<bool> DeleteAsync(string id)
     {
-        return await _flightRepository.DeleteAsync(id);
+        return await _repository.DeleteAsync(id);
     }
 }
