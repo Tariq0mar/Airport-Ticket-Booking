@@ -40,7 +40,7 @@ public class UserService : IUserService
 
     public async Task<bool> UpdateAsync(User user)
     {
-        return await _userRepository.UpdateAsync(user);
+        return await _repository.UpdateAsync(user);
     }
 
     public async Task<User?> UserAuthentication(string id, string password)
