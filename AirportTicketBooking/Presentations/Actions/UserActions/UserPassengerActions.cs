@@ -1,11 +1,12 @@
 ﻿using AirportTicketBooking.Interfaces.Services;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.UserActions;
 
 public static class UserPassengerActions
 {
-    private static readonly IUserService _userService = new UserService();
+    private static readonly IUserService _userService = new UserService(new UserRepository());
 
     public static async Task GetUserById()
     {

@@ -1,11 +1,12 @@
 ﻿using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Screens;
 
 public class InputAccountData
 {
-    private static readonly UserService _userService = new UserService();
+    private static readonly UserService _userService = new UserService(new UserRepository());
 
     public static async Task<User> InputUserAccountData()
     {

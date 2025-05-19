@@ -1,11 +1,12 @@
 ﻿using AirportTicketBooking.Interfaces.Services;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.FlightActions;
 
 public static class FlightPassengerActions
 {
-    private static readonly IFlightService _flightService = new FlightService();
+    private static readonly IFlightService _flightService = new FlightService(new FlightRepository());
 
     public static async Task GetFlightById()
     {

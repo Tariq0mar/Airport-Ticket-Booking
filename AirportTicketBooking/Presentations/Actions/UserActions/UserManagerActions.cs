@@ -2,13 +2,14 @@
 using AirportTicketBooking.InputModels.InputUser;
 using AirportTicketBooking.Interfaces.Services;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.UserActions;
 
 public static class UserManagerActions
 {
-    private static readonly IUserService _userService = new UserService();
+    private static readonly IUserService _userService = new UserService(new UserRepository());
 
     public static async Task AddUser()
     {
