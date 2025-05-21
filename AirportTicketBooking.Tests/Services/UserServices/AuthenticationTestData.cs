@@ -19,12 +19,12 @@ namespace AirportTicketBooking.Tests.Services.UserService
             };
             var manager = new Manager
             {
-                UserId = "m1",
+                UserId = "1",
                 Role = UserRole.Manager,
                 Name = "Omar",
                 Email = "omar@mail.com",
-                Password = "adminpass",
-                PhoneNumber = "654321"
+                Password = "123456",
+                PhoneNumber = "123456"
             };
 
             yield return new object[] { "1", "123456", passenger };
