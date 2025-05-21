@@ -6,7 +6,12 @@ using AirportTicketBooking.Repositories;
 namespace AirportTicketBooking.Services;
 public class BookingService : IBookingService
 {
-    private readonly IBookingRepository _repository = new BookingRepository();
+    private readonly IBookingRepository _repository;
+
+    public BookingService(IBookingRepository repository)
+    {
+        _repository = repository;
+    }
 
     public async Task<string> AddAsync(Booking booking)
     {
