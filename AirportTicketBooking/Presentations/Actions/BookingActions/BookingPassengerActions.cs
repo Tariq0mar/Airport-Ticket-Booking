@@ -1,13 +1,14 @@
 ﻿using AirportTicketBooking.InputModels.InputBooking;
 using AirportTicketBooking.Interfaces.Services;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.BookingActions; 
 
 public static class BookingPassengerActions
 {
-    private static readonly IBookingService _bookingService = new BookingService();
+    private static readonly IBookingService _bookingService = new BookingService(new BookingRepository());
 
     public static async Task AddBooking()
     {

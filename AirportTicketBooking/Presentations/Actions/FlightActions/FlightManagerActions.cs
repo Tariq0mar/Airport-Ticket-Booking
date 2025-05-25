@@ -1,13 +1,14 @@
 ﻿using AirportTicketBooking.InputModels.InputFlight;
 using AirportTicketBooking.Interfaces.Services;
 using AirportTicketBooking.Models;
+using AirportTicketBooking.Repositories;
 using AirportTicketBooking.Services;
 
 namespace AirportTicketBooking.Presentations.Actions.FlightActions;
 
 public static class FlightManagerActions
 {
-    private static readonly IFlightService _flightService = new FlightService();
+    private static readonly IFlightService _flightService = new FlightService(new FlightRepository());
 
     public static async Task AddFlight()
     {
